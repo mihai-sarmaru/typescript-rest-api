@@ -18,7 +18,6 @@ export async function createServer(): Promise<Express> {
 
     // API validator
     const validatorOptions = {
-        coerceTypes: true,
         apiSpec: yamlSpecFile,
         validateRequests: true,
         validateResponses: true
