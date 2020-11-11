@@ -3,6 +3,9 @@ import {Express} from 'express-serve-static-core';
 import * as OpenApiValidator from 'express-openapi-validator';
 import {connector, summarise} from 'swagger-routes-express';
 import YAML from 'yamljs';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import morganBody from 'morgan-body';
 
 import * as api from '@ms/api/controllers';
 
@@ -23,6 +26,11 @@ export async function createServer(): Promise<Express> {
         validateResponses: true
     };
     server.use(OpenApiValidator.middleware(validatorOptions));
+
+    // logging middleware
+    server.use(bodyParser.json());
+    server.use(morgan(':method :url :status: response-time ms - :res[content-length]'));
+    morganBody(server);
 
     // error handler middleware
     server.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
