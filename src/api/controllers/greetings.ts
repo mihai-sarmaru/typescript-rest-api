@@ -1,10 +1,16 @@
-import * as express from 'express';
+import {Request, Response} from 'express';
+import {writeJsonResponse} from '../../utils/express'
 
-export function hello(req: express.Request, res: express.Response): void {
+export function hello(req: Request, res: Response): void {
     const name = req.query.name || 'stranger';
-    const message = `Hello ${name}!`;
+    writeJsonResponse(res, 200, {
+        message: `Hello ${name}!`
+    });
+}
 
-    res.json({
-        message: message
+export function goodbye(req: Request, res: Response): void {
+    const userId = res.locals.auth.userId;
+    writeJsonResponse(res, 200, {
+        message: `Goodbye, ${userId}!`
     });
 }
