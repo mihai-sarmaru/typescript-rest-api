@@ -25,6 +25,17 @@ export async function createServer(): Promise<Express> {
     };
     server.use(OpenApiValidator.middleware(validatorOptions));
 
+    // error handler middleware
+    server.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        res.status(err.status).json({
+            error: {
+                type: 'request_validation',
+                message: err.message,
+                errors: err.errors
+            }
+        });
+    });
+
     // connect server with api definition
     const connect = connector(api, apiDefinition, {
         onCreateRoute: (method: string, descriptor: any[]) => {
