@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {writeJsonResponse} from '../../utils/express'
+import {writeJsonResponse} from '@ms/utils/express'
 
 export function hello(req: Request, res: Response): void {
     const name = req.query.name || 'stranger';

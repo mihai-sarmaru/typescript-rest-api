@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 
-import UserService from '../services/user';
-import {writeJsonResponse} from '../../utils/express'
+import UserService from '@ms/api/services/user';
+import {writeJsonResponse} from '@ms/utils/express'
 
 export function auth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization!
